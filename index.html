@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>The ARCs of the Journey - June 12 Update</title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inria+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Protest+Revolution&display=swap" rel="stylesheet">
+
+	<style>
+		body {
+			font-family: "Inria Sans", sans-serif;
+			background: #f9f9f9;
+			background: radial-gradient( #f9f9f9 50%, #9acbc0);
+			margin: 0;
+			padding: 2rem;
+			text-align: center;
+			font-size: 18px;
+		}
+
+		#arcs-wrapper {
+			position: relative;
+			max-width: 800px;
+			margin: auto;
+		}
+
+		svg {
+			width: 100%;
+			height: auto;
+		}
+
+		.arc-path {
+			stroke: #ccc;
+			stroke-width: 8;
+			fill: none;
+			cursor: pointer;
+			transition: stroke 0.2s ease;
+		}
+
+		.arc-path:hover {
+			stroke: #a71b75;
+		}
+
+		/* .tooltip {
+			position: absolute;
+			background: rgba(0, 0, 0, 0.85);
+			color: #fff;
+			padding: 8px 12px;
+			border-radius: 4px;
+			font-size: 14px;
+			pointer-events: none;
+			white-space: nowrap;
+			display: none;
+			z-index: 1000;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+			transform: translate(-800px, -400px);
+		} */
+
+        .tooltip-hover {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            pointer-events: none;
+            white-space: nowrap;
+            display: none;
+            z-index: 1000;
+            transform: translate(10px, 10px);
+        }
+
+        .tooltip-modal {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            
+            color: #111;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            padding: 2rem;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 2000;
+        }
+
+        .tooltip-modal button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #a71b75;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #tooltip-modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1999;
+            background: rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+		.label {
+			position: absolute;
+			padding: 6px 10px;
+			background: #a71b75;
+			color: #fff;
+			border-radius: 20px;
+			font-size: 14px;
+			cursor: default;
+			transform: translate(-50%, -50%);
+			white-space: nowrap;
+		}
+
+		.label[data-tooltip]:hover::after {
+			content: attr(data-tooltip);
+			position: absolute;
+			top: -36px;
+			left: 50%;
+			transform: translateX(-50%);
+			background: rgba(0, 0, 0, 0.8);
+			color: #fff;
+			padding: 6px 10px;
+			border-radius: 4px;
+			font-size: 13px;
+			white-space: nowrap;
+			z-index: 100;
+		}
+
+		.arc-message-area {
+			display: none;
+			opacity: 0;
+			transform: translateY(10px);
+			transition: opacity 1s ease, transform 1s ease;
+
+			/* Existing styles */
+			text-align: left;
+			background: #fff;
+			border-left: 4px solid #a71b75;
+			padding: 1rem 1.5rem;
+			margin-top: 2rem;
+			margin-bottom: 1rem;
+			border-top-right-radius: 8px;
+			border-bottom-right-radius: 8px;
+			box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+			font-size: 16px;
+			max-width: 800px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.arc-message-area.active {
+			display: block;
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.arc-message-content {
+			opacity: 0;
+			transform: translateY(6px);
+			transition: opacity 2s ease 1s, transform 1s ease 1s;
+		}
+
+		.arc-message-area.active .arc-message-content {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		h1 {
+			font-family: "Protest Revolution", sans-serif;
+		}
+
+		h2 {
+			font-family: "Inria Serif", serif;
+			font-style: italic;
+		}
+
+		.site-inner {
+			max-width: 800px;
+			margin: 0 auto;
+			padding-bottom: 20rem;
+		}
+
+		.arc-message-content h3 {
+			font-family: "Protest Revolution", sans-serif;
+			margin-top: 0;
+		}
+
+		.arcs-intro-wrapper p {
+			text-align: left;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="site-inner">
+	<h1>The ARCs of the JOURNEY - June 12 Update</h1>
+
+	<div class="arcs-intro-wrapper">
+		<h2>Heal yourself, with beautiful love and always remember.. you are the medicine. -Maria Sabina</h2>
+		<p>In the psychedelic assisted therapy realm, there is obviously a lot of focus on the psychedelics themselves and the medicine ceremony.   But this is only part of the journey, and the arc of the entire journey is much grander.   Instead of grasping onto a particular medicine, ceremony, framework, guru, etc., I put forth these principles as a gentle reminder that the skills and mindset that help you prepare for, navigate, and integrate a psychedelic experience, are the same skills and mindset that allow you to be the medicine, for yourself, everyone and everything around you, for the rest of your life.</p>
+	</div>
+
+	<div id="arc-message" class="arc-message-area"></div>
+
+	<div id="arc-message-templates" style="display: none;">
+		
+		<div id="message-prep-contentment">
+			<div class="arc-message-content">
+				<h3>Preparation ↔ Contentment</h3>
+				<p>Sending out invitations, rather than intentions, which can easily morph into expectations. Not grasping onto outcomes; trusting that what comes up is an essential part of the journey.</p>
+				<p><em>If you want to catch a horse, don't chase it. The distance will only get further.- I ching</em></p>
+			</div>
+		</div>
+
+		<div id="message-ceremony-contentment">
+			<div class="arc-message-content">
+				<h3>Ceremony ↔ Contentment</h3>
+				<p>When we let go of attachments, we are able to fully engage with what comes to us, experiencing it with a freshness and openness, feeling fully, with the ability to be present with whatever arises; no judgment, only wonder.</p>
+			</div>
+		</div>
+
+		<div id="message-integration-contentment">
+			<div class="arc-message-content">
+				<h3>Integration ↔ Contentment</h3>
+				<p>Losing the linear growth check-list mindset.  Healing happens in a spiral, uncovering layers and coming back around.  Grasping at hopes,  fears, and regrets keeps you out of the present, where you are most open to growth.   having self-compassion, being grateful for small steps.</p>
+			</div>
+		</div>
+
+		<!-- Add more templates as needed -->
+	</div>
+
+	<div id="arcs-wrapper">
+		<svg id="arcs-journey" viewBox="0 0 800 600">
+			
+            <!-- Curved example paths -->
+			<path d="M100,200 Q400,-100 700,200" class="arc-path" data-tooltip="Preparation → Integration" data-x="400" data-y="40" />
+			<!-- <path d="M100,200 Q100,300 100,530" class="arc-path" data-tooltip="Preparation → Contentment" data-x="100" data-y="300" /> -->
+            <!-- <path d="M700,200 Q700,300 700,550" class="arc-path" data-tooltip="Integration → Interconnectedness" data-x="100" data-y="300" /> -->
+
+            <!-- New lines from Preparation to all 4 bottom concepts -->
+            <path data-message-id="prep-contentment" d="M100,200 Q80,375 100,550" class="arc-path" data-tooltip="Preparation ↔ Contentment" data-x="120" data-y="375" />
+            <path d="M100,200 Q200,400 300,550" class="arc-path" data-tooltip="Preparation ↔ Mindfulness" data-x="200" data-y="400" />
+            <path d="M100,200 Q300,425 500,550" class="arc-path" data-tooltip="Preparation ↔ Impermanence" data-x="300" data-y="425" />
+            <path d="M100,200 Q390,440 680,550" class="arc-path" data-tooltip="Preparation ↔ Interconnectedness" data-x="390" data-y="440" />
+
+            <!-- New lines from Ceremony to bottom 4 -->
+            <path data-message-id="ceremony-contentment" d="M400,50 Q350,325 100,550" class="arc-path" data-tooltip="Ceremony ↔ Contentment" data-x="350" data-y="325" />
+            <path d="M400,50 Q375,375 300,550" class="arc-path" data-tooltip="Ceremony ↔ Mindfulness" data-x="375" data-y="375" />
+            <path d="M400,50 Q425,375 500,550" class="arc-path" data-tooltip="Ceremony ↔ Impermanence" data-x="425" data-y="375" />
+            <path d="M400,50 Q450,325 680,550" class="arc-path" data-tooltip="Ceremony ↔ Interconnectedness" data-x="450" data-y="325" />
+
+            <!-- New lines from Integration to bottom 4 -->
+            <path data-message-id="integration-contentment" d="M700,200 Q550,325 100,550" class="arc-path" data-tooltip="Integration ↔ Contentment" data-x="550" data-y="325" />
+            <path d="M700,200 Q575,375 300,550" class="arc-path" data-tooltip="Integration ↔ Mindfulness" data-x="575" data-y="375" />
+            <path d="M700,200 Q625,400 500,550" class="arc-path" data-tooltip="Integration ↔ Impermanence" data-x="625" data-y="400" />
+            <path d="M700,200 Q690,450 680,550" class="arc-path" data-tooltip="Integration ↔ Interconnectedness" data-x="690" data-y="450" />
+
+		</svg>
+
+		<!-- Top labels -->
+		<div class="label" style="left: 100px; top: 200px;" data-tooltip="Phase 1: Prepare">Arc I - Preparation</div>
+		<div class="label" style="left: 400px; top: 50px;" data-tooltip="Phase 2: Ceremony">Arc II - Ceremony</div>
+		<div class="label" style="left: 700px; top: 200px;" data-tooltip="Phase 3: Integrate">Arc III - Integration</div>
+
+		<!-- Bottom labels -->
+		<div class="label" style="left: 100px; top: 550px;" data-tooltip="Cultivate satisfaction">Contentment (Non-Attachment)</div>
+		<div class="label" style="left: 300px; top: 550px;" data-tooltip="Be present">Openness (Mindfulness)</div>
+		<div class="label" style="left: 500px; top: 550px;" data-tooltip="Everything changes">Flow (Impermanence)</div>
+		<div class="label" style="left: 680px; top: 550px;" data-tooltip="We are all connected">Oneness (Non-Duality)</div>
+
+		<div id="tooltip-hover" class="tooltip-hover"></div>
+
+	</div>
+	</div>
+
+	<script>
+		const hoverTip = document.getElementById('tooltip-hover');
+		const arcsWrapper = document.getElementById('arcs-wrapper');
+		const messageBox = document.getElementById('arc-message');
+
+		// Hover tooltip logic
+		document.querySelectorAll('.arc-path').forEach(path => {
+			path.addEventListener('mouseenter', (e) => {
+				hoverTip.innerText = path.getAttribute('data-tooltip');
+				hoverTip.style.display = 'block';
+			});
+
+			path.addEventListener('mousemove', (e) => {
+				const wrapperRect = arcsWrapper.getBoundingClientRect();
+				hoverTip.style.left = `${e.clientX - wrapperRect.left + 10}px`;
+				hoverTip.style.top = `${e.clientY - wrapperRect.top + 10}px`;
+			});
+
+			path.addEventListener('mouseleave', () => {
+				hoverTip.style.display = 'none';
+			});
+
+			// Click to update fixed message box
+			path.addEventListener('click', () => {
+				const messageId = path.getAttribute('data-message-id');
+				const template = document.getElementById(`message-${messageId}`);
+
+				if (template) {
+					// Clear current content and remove active class immediately
+					messageBox.classList.remove('active');
+					messageBox.innerHTML = ''; // wipe existing content
+					messageBox.style.display = 'block';
+
+					// Clone new content in cleanly
+					const content = template.querySelector('.arc-message-content').cloneNode(true);
+					content.classList.remove('arc-message-content'); // strip animation class initially
+
+					messageBox.appendChild(content);
+
+					// Force reflow to reset all transitions
+					void messageBox.offsetWidth;
+
+					// Add wrapper + content classes with a tick delay
+					messageBox.classList.add('active');
+					requestAnimationFrame(() => {
+						content.classList.add('arc-message-content');
+					});
+				} else {
+					messageBox.innerHTML = `<p><em>No message found for this arc.</em></p>`;
+					messageBox.style.display = 'block';
+					messageBox.classList.add('active');
+				}
+			});
+
+		});
+	</script>
+
+</body>
+</html>
