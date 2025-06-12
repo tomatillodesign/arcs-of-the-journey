@@ -207,6 +207,11 @@
 			text-align: left;
 		}
 
+		.arc-path.selected {
+			stroke: #7b1e56;
+		}
+
+
 	</style>
 </head>
 <body>
@@ -316,6 +321,13 @@
 
 			// Click to update fixed message box
 			path.addEventListener('click', () => {
+
+			// Remove .selected from all paths
+			document.querySelectorAll('.arc-path').forEach(p => p.classList.remove('selected'));
+
+			// Add .selected to the clicked one
+			path.classList.add('selected');
+
 				const messageId = path.getAttribute('data-message-id');
 				const template = document.getElementById(`message-${messageId}`);
 
