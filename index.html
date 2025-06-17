@@ -119,7 +119,7 @@
 
 		.label {
 			position: absolute;
-			padding: 6px 10px;
+			padding: 12px 20px;
 			background: #a71b75;
 			color: #fff;
 			border-radius: 20px;
@@ -154,7 +154,7 @@
 			text-align: left;
 			background: #fff;
 			border-left: 4px solid #a71b75;
-			padding: 1rem 1.5rem;
+			padding: 1.5rem;
 			margin-top: 2rem;
 			margin-bottom: 1rem;
 			border-top-right-radius: 8px;
@@ -198,6 +198,28 @@
 			padding-bottom: 20rem;
 		}
 
+		.arc-message-content .clb-template-image {
+			max-height: 400px;
+		}
+
+		.arc-message-content img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: 3px;
+		}
+
+		.arc-message-content {
+			display: flex;
+			flex-direction: row-reverse;
+			gap: 12px;
+		}
+
+		.clb-template-body {
+			margin-right: 12px;
+			min-width: 260px;
+		}
+
 		.arc-message-content h3 {
 			font-family: "Protest Revolution", sans-serif;
 			margin-top: 0;
@@ -209,6 +231,10 @@
 
 		.arc-path.selected {
 			stroke: #7b1e56;
+		}
+
+		.clb-newline {
+			display: block;
 		}
 
 
@@ -228,69 +254,129 @@
 
 	<div id="arc-message-templates" style="display: none;">
 		
+		<!-- CONTENTMENT -->
 		<div id="message-prep-contentment">
 			<div class="arc-message-content">
-				<h3>Preparation ↔ Contentment</h3>
-				<p>Sending out invitations, rather than intentions, which can easily morph into expectations. Not grasping onto outcomes; trusting that what comes up is an essential part of the journey.</p>
-				<p><em>If you want to catch a horse, don't chase it. The distance will only get further.- I ching</em></p>
+				<div class="clb-template-image">
+					<img src="images/1.jpg" alt="tree roots" />
+				</div>
+				<div class="clb-template-body">
+					<h3>Preparation ↔ Contentment</h3>
+					<p>Sending out invitations, rather than intentions, which can easily morph into expectations. Not grasping onto outcomes; trusting that what comes up is an essential part of the journey.</p>
+					<p><em>If you want to catch a horse, don't chase it. The distance will only get further.- I ching</em></p>
+				</div>
 			</div>
 		</div>
 
 		<div id="message-ceremony-contentment">
 			<div class="arc-message-content">
-				<h3>Ceremony ↔ Contentment</h3>
-				<p>When we let go of attachments, we are able to fully engage with what comes to us, experiencing it with a freshness and openness, feeling fully, with the ability to be present with whatever arises; no judgment, only wonder.</p>
+				<div class="clb-template-image">
+					<img src="images/2.jpg" alt="tree roots" />
+				</div>
+				<div class="clb-template-body">
+					<h3>Ceremony ↔ Contentment</h3>
+					<p>When we let go of attachments, we are able to fully engage with what comes to us, experiencing it with a freshness and openness, feeling fully, with the ability to be present with whatever arises; no judgment, only wonder.</p>
+				</div>
 			</div>
 		</div>
 
 		<div id="message-integration-contentment">
 			<div class="arc-message-content">
-				<h3>Integration ↔ Contentment</h3>
-				<p>Losing the linear growth check-list mindset.  Healing happens in a spiral, uncovering layers and coming back around.  Grasping at hopes,  fears, and regrets keeps you out of the present, where you are most open to growth.   having self-compassion, being grateful for small steps.</p>
+				<div class="clb-template-image">
+					<img src="images/3.jpg" alt="tree roots" />
+				</div>
+				<div class="clb-template-body">
+					<h3>Integration ↔ Contentment</h3>
+					<p>Losing the linear growth check-list mindset.  Healing happens in a spiral, uncovering layers and coming back around.  Grasping at hopes,  fears, and regrets keeps you out of the present, where you are most open to growth.   having self-compassion, being grateful for small steps.</p>
+				</div>
 			</div>
 		</div>
+
+		<!-- Openness -->
+		<div id="message-prep-openness">
+			<div class="arc-message-content">
+				<div class="clb-template-image">
+					<img src="images/4.jpg" alt="tree roots" />
+				</div>
+				<div class="clb-template-body">
+					<h3>Preparation ↔ Openness</h3>
+					<p>When going into any new experience, advice often given is, “Keep an open mind!” In Zen, this is known as Beginner’s Mind. Without preconceptions and prejudgements clouding the mind, one can freely explore new possibilities and perspectives. *One can practice increasing awareness and tamping down reactiveness through practices like meditation and shadow work.  Knowing you are not your thoughts or thought-patterns, you can let them go without losing yourself.</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="message-ceremony-openness">
+			<div class="arc-message-content">
+				<div class="clb-template-image">
+					<img src="images/5.png" alt="tree roots" />
+				</div>
+				<div class="clb-template-body">
+					<h3>Ceremony ↔ Openness</h3>
+					<p>Curiosity is a great ally. Whatever comes up, shine the light of your awareness on it.</p> 
+					<ol>
+						<li>Face it with clarity</li>
+						<li>Welcome and Accept it</li>
+						<li>Resolve or respond to it</li>
+						<li>Let it go</li>
+					</ol>
+					<p>Awareness with acceptance is healing!</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="message-integration-openness">
+			<div class="arc-message-content">
+				<div class="clb-template-image">
+					<img src="images/6.jpg" alt="tree roots" />
+				</div>
+				<div class="clb-template-body">
+					<h3>Integration ↔ Openness</h3>
+					<p>Medicine journeys tend to stir up a lot! As in the journey, energy flows where awareness goes. The more we’re aware of, the more we must embrace. As feelings come to the surface, we’re able to expose the deeper layers of our habits. The more we work through them, the more we are able to let go and accept ourselves. In time, we become freer.</p>
+				</div>
+			</div>
+		</div>
+
 
 		<!-- Add more templates as needed -->
 	</div>
 
 	<div id="arcs-wrapper">
-		<svg id="arcs-journey" viewBox="0 0 800 600">
-			
-            <!-- Curved example paths -->
-			<path d="M100,200 Q400,-100 700,200" class="arc-path" data-tooltip="Preparation → Integration" data-x="400" data-y="40" />
-			<!-- <path d="M100,200 Q100,300 100,530" class="arc-path" data-tooltip="Preparation → Contentment" data-x="100" data-y="300" /> -->
-            <!-- <path d="M700,200 Q700,300 700,550" class="arc-path" data-tooltip="Integration → Interconnectedness" data-x="100" data-y="300" /> -->
 
-            <!-- New lines from Preparation to all 4 bottom concepts -->
-            <path data-message-id="prep-contentment" d="M100,200 Q80,375 100,550" class="arc-path" data-tooltip="Preparation ↔ Contentment" data-x="120" data-y="375" />
-            <path d="M100,200 Q200,400 300,550" class="arc-path" data-tooltip="Preparation ↔ Mindfulness" data-x="200" data-y="400" />
-            <path d="M100,200 Q300,425 500,550" class="arc-path" data-tooltip="Preparation ↔ Impermanence" data-x="300" data-y="425" />
-            <path d="M100,200 Q390,440 680,550" class="arc-path" data-tooltip="Preparation ↔ Interconnectedness" data-x="390" data-y="440" />
+		<svg id="arcs-journey" viewBox="0 -50 800 720" xmlns="http://www.w3.org/2000/svg">
 
-            <!-- New lines from Ceremony to bottom 4 -->
-            <path data-message-id="ceremony-contentment" d="M400,50 Q350,325 100,550" class="arc-path" data-tooltip="Ceremony ↔ Contentment" data-x="350" data-y="325" />
-            <path d="M400,50 Q375,375 300,550" class="arc-path" data-tooltip="Ceremony ↔ Mindfulness" data-x="375" data-y="375" />
-            <path d="M400,50 Q425,375 500,550" class="arc-path" data-tooltip="Ceremony ↔ Impermanence" data-x="425" data-y="375" />
-            <path d="M400,50 Q450,325 680,550" class="arc-path" data-tooltip="Ceremony ↔ Interconnectedness" data-x="450" data-y="325" />
+			<!-- Top arc (Preparation → Integration) -->
+			<path d="M100,100 Q400,-120 700,100" class="arc-path" data-tooltip="Preparation → Integration" />
 
-            <!-- New lines from Integration to bottom 4 -->
-            <path data-message-id="integration-contentment" d="M700,200 Q550,325 100,550" class="arc-path" data-tooltip="Integration ↔ Contentment" data-x="550" data-y="325" />
-            <path d="M700,200 Q575,375 300,550" class="arc-path" data-tooltip="Integration ↔ Mindfulness" data-x="575" data-y="375" />
-            <path d="M700,200 Q625,400 500,550" class="arc-path" data-tooltip="Integration ↔ Impermanence" data-x="625" data-y="400" />
-            <path d="M700,200 Q690,450 680,550" class="arc-path" data-tooltip="Integration ↔ Interconnectedness" data-x="690" data-y="450" />
+			<!-- Preparation arcs -->
+			<path d="M100,100 Q50,300 100,550" class="arc-path" data-tooltip="Preparation ↔ Contentment" data-message-id="prep-contentment" />
+			<path d="M100,100 Q200,275 300,550" class="arc-path" data-tooltip="Preparation ↔ Openness" data-message-id="prep-openness"/>
+			<path d="M100,100 Q300,260 500,550" class="arc-path" data-tooltip="Preparation ↔ Flow" data-message-id=""/>
+			<path d="M100,100 Q400,250 700,550" class="arc-path" data-tooltip="Preparation ↔ Oneness" data-message-id=""/>
+
+			<!-- Ceremony arcs -->
+			<path d="M400,0 Q250,250 100,550" class="arc-path" data-tooltip="Ceremony ↔ Contentment" data-message-id="ceremony-contentment"/>
+			<path d="M400,0 Q350,250 300,550" class="arc-path" data-tooltip="Ceremony ↔ Openness" data-message-id="ceremony-openness"/>
+			<path d="M400,0 Q450,250 500,550" class="arc-path" data-tooltip="Ceremony ↔ Flow" data-message-id=""/>
+			<path d="M400,0 Q550,250 700,550" class="arc-path" data-tooltip="Ceremony ↔ Oneness" data-message-id=""/>
+
+			<!-- Integration arcs -->
+			<path d="M700,100 Q400,250 100,550" class="arc-path" data-tooltip="Integration ↔ Contentment" data-message-id="integration-contentment"/>
+			<path d="M700,100 Q500,260 300,550" class="arc-path" data-tooltip="Integration ↔ Openness" data-message-id="integration-openness"/>
+			<path d="M700,100 Q600,275 500,550" class="arc-path" data-tooltip="Integration ↔ Flow" data-message-id=""/>
+			<path d="M700,100 Q750,300 700,550" class="arc-path" data-tooltip="Integration ↔ Oneness" data-message-id=""/>
 
 		</svg>
 
 		<!-- Top labels -->
-		<div class="label" style="left: 100px; top: 200px;" data-tooltip="Phase 1: Prepare">Arc I - Preparation</div>
-		<div class="label" style="left: 400px; top: 50px;" data-tooltip="Phase 2: Ceremony">Arc II - Ceremony</div>
-		<div class="label" style="left: 700px; top: 200px;" data-tooltip="Phase 3: Integrate">Arc III - Integration</div>
+		<div class="label" style="left: 100px; top: 160px;" data-tooltip="Phase 1: Prepare">Arc I - Preparation</div>
+		<div class="label" style="left: 400px; top: 40px;" data-tooltip="Phase 2: Ceremony">Arc II - Ceremony</div>
+		<div class="label" style="left: 700px; top: 160px;" data-tooltip="Phase 3: Integrate">Arc III - Integration</div>
 
 		<!-- Bottom labels -->
-		<div class="label" style="left: 100px; top: 550px;" data-tooltip="Cultivate satisfaction">Contentment (Non-Attachment)</div>
-		<div class="label" style="left: 300px; top: 550px;" data-tooltip="Be present">Openness (Mindfulness)</div>
-		<div class="label" style="left: 500px; top: 550px;" data-tooltip="Everything changes">Flow (Impermanence)</div>
-		<div class="label" style="left: 680px; top: 550px;" data-tooltip="We are all connected">Oneness (Non-Duality)</div>
+		<div class="label" style="left: 100px; top: 600px;" data-tooltip="Cultivate satisfaction">Contentment<span class="clb-newline">(Non-Attachment)</span></div>
+		<div class="label" style="left: 300px; top: 600px;" data-tooltip="Be present">Openness<span class="clb-newline">(Mindfulness)</span></div>
+		<div class="label" style="left: 500px; top: 600px;" data-tooltip="Everything changes">Flow <span class="clb-newline">(Impermanence)</span></div>
+		<div class="label" style="left: 700px; top: 600px;" data-tooltip="We are all connected">Oneness <span class="clb-newline">(Non-Duality)</span></div>
 
 		<div id="tooltip-hover" class="tooltip-hover"></div>
 
@@ -330,6 +416,8 @@
 
 				const messageId = path.getAttribute('data-message-id');
 				const template = document.getElementById(`message-${messageId}`);
+
+				console.log(messageId);
 
 				if (template) {
 					// Clear current content and remove active class immediately
