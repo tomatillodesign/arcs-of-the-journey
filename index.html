@@ -276,10 +276,10 @@
 			opacity: 0;
 			transition: transform 0.25s ease, opacity 0.25s ease;
 		}
+		
 		.arc-modal.active .arc-modal-content {
 			transform: scale(1);
 			opacity: 1;
-			max-width: 80%;
 		}
 
 		.arc-modal-content img {
@@ -394,6 +394,10 @@
 			.label {
 				font-size: clamp(10px, 2vw, 16px);
 				padding: 4px 8px;
+			}
+
+			.arc-modal.active .arc-modal-content {
+				max-width: 80%;
 			}
 
 		}
