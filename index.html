@@ -279,6 +279,7 @@
 		.arc-modal.active .arc-modal-content {
 			transform: scale(1);
 			opacity: 1;
+			max-width: 80%;
 		}
 
 		.arc-modal-content img {
@@ -328,6 +329,73 @@
 		}
 		.arc-path-top:hover {
 			stroke: #a71b75; /* same purple as others */
+		}
+
+
+		/* General label positioning for all screens */
+		#arcs-wrapper {
+			position: relative;
+			max-width: 800px;
+			margin: auto;
+			aspect-ratio: 800 / 720; /* matches your viewBox */
+		}
+
+		.label {
+			position: absolute;
+			transform: translate(-50%, -50%);
+			font-size: clamp(12px, 2vw, 16px);
+			padding: 6px 10px;
+			background: #a71b75;
+			color: #fff;
+			border-radius: 20px;
+			white-space: nowrap;
+		}
+
+		@media (max-width: 600px) {
+			.arc-modal {
+				align-items: flex-start;   /* push content to top */
+				padding-top: 1rem;         /* add breathing room */
+			}
+
+			.arc-modal-content {
+				max-height: 95vh;          /* use nearly full height */
+				border-radius: 0;          /* optional: square edges on mobile */
+			}
+
+			.arc-message-content {
+				flex-direction: column-reverse;
+			}
+
+			.clb-template-body {
+				min-width: auto;           /* allow shrinking */
+				margin-right: 0;
+			}
+
+			.arc-modal .clb-template-image {
+				max-width: 100%;
+				margin-bottom: 1rem;
+			}
+
+			#arcs-wrapper {
+				position: relative;
+				max-width: 800px;
+				margin: auto;
+				/* Keep the aspect ratio using the viewBox ratio (800w x 770h roughly) */
+				aspect-ratio: 800 / 770;
+			}
+
+			#arcs-journey {
+				width: 100%;
+				height: 100%;
+				display: block;
+			}
+
+			/* Scale labels with canvas */
+			.label {
+				font-size: clamp(10px, 2vw, 16px);
+				padding: 4px 8px;
+			}
+
 		}
 
 
@@ -521,7 +589,12 @@
 
 	<div id="arcs-wrapper">
 
-		<svg id="arcs-journey" viewBox="0 -50 800 720" xmlns="http://www.w3.org/2000/svg">
+		<svg id="arcs-journey"
+			viewBox="0 -50 800 720"
+			xmlns="http://www.w3.org/2000/svg"
+			preserveAspectRatio="xMidYMid meet"
+			role="img"
+			aria-label="Journey arcs diagram">
 
 			<!-- Top arc (Preparation → Integration) -->
 			<path d="M100,100 Q400,-120 700,100" class="arc-path arc-path-top" data-tooltip="Preparation → Integration" />
@@ -547,15 +620,29 @@
 		</svg>
 
 		<!-- Top labels -->
-		<div class="label" style="left: 100px; top: 160px;" data-tooltip="Phase 1: Prepare">Arc I - Preparation</div>
-		<div class="label" style="left: 400px; top: 40px;" data-tooltip="Phase 2: Ceremony">Arc II - Ceremony</div>
-		<div class="label" style="left: 700px; top: 160px;" data-tooltip="Phase 3: Integrate">Arc III - Integration</div>
+		<div class="label" data-x="12.5" data-y="22" data-tooltip="Phase 1: Prepare">
+			Arc I - Preparation
+		</div>
+		<div class="label" data-x="50" data-y="6" data-tooltip="Phase 2: Ceremony">
+			Arc II - Ceremony
+		</div>
+		<div class="label" data-x="87.5" data-y="22" data-tooltip="Phase 3: Integrate">
+			Arc III - Integration
+		</div>
 
 		<!-- Bottom labels -->
-		<div class="label" style="left: 100px; top: 600px;" data-tooltip="Cultivate satisfaction">Contentment<span class="clb-newline">(Non-Attachment)</span></div>
-		<div class="label" style="left: 300px; top: 600px;" data-tooltip="Be present">Openness<span class="clb-newline">(Mindfulness)</span></div>
-		<div class="label" style="left: 500px; top: 600px;" data-tooltip="Everything changes">Flow <span class="clb-newline">(Impermanence)</span></div>
-		<div class="label" style="left: 700px; top: 600px;" data-tooltip="We are all connected">Oneness <span class="clb-newline">(Non-Duality)</span></div>
+		<div class="label" data-x="12.5" data-y="83.3" data-tooltip="Cultivate satisfaction">
+			Contentment<span class="clb-newline">(Non-Attachment)</span>
+		</div>
+		<div class="label" data-x="37.5" data-y="83.3" data-tooltip="Be present">
+			Openness<span class="clb-newline">(Mindfulness)</span>
+		</div>
+		<div class="label" data-x="62.5" data-y="83.3" data-tooltip="Everything changes">
+			Flow <span class="clb-newline">(Impermanence)</span>
+		</div>
+		<div class="label" data-x="87.5" data-y="83.3" data-tooltip="We are all connected">
+			Oneness <span class="clb-newline">(Non-Duality)</span>
+		</div>
 
 		<div id="tooltip-hover" class="tooltip-hover"></div>
 
@@ -593,10 +680,24 @@
         });
 
         path.addEventListener('mousemove', (e) => {
-            const wrapperRect = arcsWrapper.getBoundingClientRect();
-            hoverTip.style.left = `${e.clientX - wrapperRect.left + 10}px`;
-            hoverTip.style.top = `${e.clientY - wrapperRect.top + 10}px`;
-        });
+			const wrapperRect = arcsWrapper.getBoundingClientRect();
+			const tipWidth = hoverTip.offsetWidth;
+			const tipHeight = hoverTip.offsetHeight;
+
+			let left = e.clientX - wrapperRect.left + 10;
+			let top = e.clientY - wrapperRect.top + 10;
+
+			if (left + tipWidth > wrapperRect.width) {
+				left = wrapperRect.width - tipWidth - 10;
+			}
+			if (top + tipHeight > wrapperRect.height) {
+				top = wrapperRect.height - tipHeight - 10;
+			}
+
+			hoverTip.style.left = `${left}px`;
+			hoverTip.style.top = `${top}px`;
+		});
+
 
         path.addEventListener('mouseleave', () => {
             hoverTip.style.display = 'none';
@@ -626,6 +727,24 @@
             }
         });
     });
+
+	function positionLabels() {
+		const wrapper = document.getElementById('arcs-wrapper');
+		const w = wrapper.offsetWidth;
+		const h = wrapper.offsetHeight;
+
+		document.querySelectorAll('.label').forEach(label => {
+			const x = parseFloat(label.dataset.x); // percentage
+			const y = parseFloat(label.dataset.y);
+			label.style.left = (w * x / 100) + 'px';
+			label.style.top = (h * y / 100) + 'px';
+		});
+	}
+
+	// Run on load + resize
+	window.addEventListener('load', positionLabels);
+	window.addEventListener('resize', positionLabels);
+
 </script>
 
 
