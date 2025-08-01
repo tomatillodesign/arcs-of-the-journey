@@ -237,13 +237,99 @@
 			display: block;
 		}
 
+		.arc-modal {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			background: rgba(0, 0, 0, 0.75); /* darker */
+			backdrop-filter: blur(6px);       /* background blur */
+			-webkit-backdrop-filter: blur(6px);
+			z-index: 9999;
+			opacity: 0;
+			transition: opacity 0.25s ease;
+		}
+		.arc-modal.active {
+			display: flex;
+			opacity: 1;
+		}
+
+		.arc-modal-content {
+			background: #fff;
+			max-width: 700px;
+			width: 90%;
+			max-height: 80vh;
+			overflow-y: auto;
+			padding: 1.5rem;
+			border-radius: 8px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+			text-align: left;
+			position: relative;
+			z-index: 10000;
+			color: #000;
+
+			transform: scale(0.95);
+			opacity: 0;
+			transition: transform 0.25s ease, opacity 0.25s ease;
+		}
+		.arc-modal.active .arc-modal-content {
+			transform: scale(1);
+			opacity: 1;
+		}
+
+		.arc-modal-content img {
+			max-width: 100%;
+			height: auto;
+			display: block;
+			margin-bottom: 1rem;
+		}
+
+		.arc-modal-close {
+			position: absolute;
+			top: 10px;
+			right: 15px;
+			background: none;
+			border: none;
+			font-size: 1.5rem;
+			cursor: pointer;
+			color: #a71b75;
+			z-index: 10001;
+		}
+
+		/* Reset arc-message-content inside modal */
+		.arc-modal .arc-message-content {
+			opacity: 1 !important;
+			transform: none !important;
+			transition: none !important;
+		}
+
+		/* Fix layout of arc-message-content inside modal */
+
+		.arc-modal .clb-template-image {
+			max-height: 100%;
+		}
+
+		.arc-modal .clb-template-image img {
+			width: 100%;
+			height: auto;
+			object-fit: cover;     /* prevent blowout */
+			border-radius: 4px;
+			margin-bottom: 0;
+		}
+
+
+
 
 	</style>
 </head>
 <body>
 
 	<div class="site-inner">
-	<h1>The ARCs of the JOURNEY - June 12 Update</h1>
+	<h1>The ARCs of the JOURNEY - August 1 Update 10:03</h1>
 
 	<div class="arcs-intro-wrapper">
 		<h2>Heal yourself, with beautiful love and always remember.. you are the medicine. -Maria Sabina</h2>
@@ -383,71 +469,67 @@
 	</div>
 	</div>
 
-	<script>
-		const hoverTip = document.getElementById('tooltip-hover');
-		const arcsWrapper = document.getElementById('arcs-wrapper');
-		const messageBox = document.getElementById('arc-message');
+	<!-- Modal -->
+	<div id="arc-modal" class="arc-modal">
+		<div class="arc-modal-content">
+			<button class="arc-modal-close" aria-label="Close">&times;</button>
+			<div id="arc-modal-body"></div>
+		</div>
+	</div>
 
-		// Hover tooltip logic
-		document.querySelectorAll('.arc-path').forEach(path => {
-			path.addEventListener('mouseenter', (e) => {
-				hoverTip.innerText = path.getAttribute('data-tooltip');
-				hoverTip.style.display = 'block';
-			});
+<script>
+    const hoverTip = document.getElementById('tooltip-hover');
+    const arcsWrapper = document.getElementById('arcs-wrapper');
+    const modal = document.getElementById('arc-modal');
+    const modalBody = document.getElementById('arc-modal-body');
+    const modalClose = modal.querySelector('.arc-modal-close');
 
-			path.addEventListener('mousemove', (e) => {
-				const wrapperRect = arcsWrapper.getBoundingClientRect();
-				hoverTip.style.left = `${e.clientX - wrapperRect.left + 10}px`;
-				hoverTip.style.top = `${e.clientY - wrapperRect.top + 10}px`;
-			});
+    // Modal close handlers
+    modalClose.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+    });
 
-			path.addEventListener('mouseleave', () => {
-				hoverTip.style.display = 'none';
-			});
+    // Hover + click logic for arcs
+    document.querySelectorAll('.arc-path').forEach(path => {
+        path.addEventListener('mouseenter', (e) => {
+            hoverTip.innerText = path.getAttribute('data-tooltip');
+            hoverTip.style.display = 'block';
+        });
 
-			// Click to update fixed message box
-			path.addEventListener('click', () => {
+        path.addEventListener('mousemove', (e) => {
+            const wrapperRect = arcsWrapper.getBoundingClientRect();
+            hoverTip.style.left = `${e.clientX - wrapperRect.left + 10}px`;
+            hoverTip.style.top = `${e.clientY - wrapperRect.top + 10}px`;
+        });
 
-			// Remove .selected from all paths
-			document.querySelectorAll('.arc-path').forEach(p => p.classList.remove('selected'));
+        path.addEventListener('mouseleave', () => {
+            hoverTip.style.display = 'none';
+        });
 
-			// Add .selected to the clicked one
-			path.classList.add('selected');
+        path.addEventListener('click', () => {
+            // clear selected classes
+            document.querySelectorAll('.arc-path').forEach(p => p.classList.remove('selected'));
+            path.classList.add('selected');
 
-				const messageId = path.getAttribute('data-message-id');
-				const template = document.getElementById(`message-${messageId}`);
+            const messageId = path.getAttribute('data-message-id');
+            const template = document.getElementById(`message-${messageId}`);
 
-				console.log(messageId);
+            if (template) {
+                modalBody.innerHTML = '';
+                const content = template.querySelector('.arc-message-content').cloneNode(true);
+                modalBody.appendChild(content);
+                modal.classList.add('active');
+            } else {
+                modalBody.innerHTML = `<p><em>No message found for this arc.</em></p>`;
+                modal.classList.add('active');
+            }
+        });
+    });
+</script>
 
-				if (template) {
-					// Clear current content and remove active class immediately
-					messageBox.classList.remove('active');
-					messageBox.innerHTML = ''; // wipe existing content
-					messageBox.style.display = 'block';
-
-					// Clone new content in cleanly
-					const content = template.querySelector('.arc-message-content').cloneNode(true);
-					content.classList.remove('arc-message-content'); // strip animation class initially
-
-					messageBox.appendChild(content);
-
-					// Force reflow to reset all transitions
-					void messageBox.offsetWidth;
-
-					// Add wrapper + content classes with a tick delay
-					messageBox.classList.add('active');
-					requestAnimationFrame(() => {
-						content.classList.add('arc-message-content');
-					});
-				} else {
-					messageBox.innerHTML = `<p><em>No message found for this arc.</em></p>`;
-					messageBox.style.display = 'block';
-					messageBox.classList.add('active');
-				}
-			});
-
-		});
-	</script>
 
 </body>
 </html>
